@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -42,5 +44,7 @@ public class ProductCategoryTest {
         List<ProductCategory> result = productCategoryRepository.findByCategoryTypeIn(list);
         Assert.assertNotEquals(0, result.size());
         System.out.println(result);
+
+
     }
 }

@@ -5,7 +5,9 @@ import lombok.Data;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.math.BigDecimal;
-
+/*
+    订单详情表：根据主表查到的orderId来查详情
+ */
 @Entity(name = "order_detail")
 @Data
 public class OrderDetail {

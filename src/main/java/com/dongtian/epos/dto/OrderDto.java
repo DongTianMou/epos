@@ -1,27 +1,27 @@
-package com.dongtian.epos.entity;
+package com.dongtian.epos.dto;
 
-import com.dongtian.epos.enums.OrderStatusEnum;
-import com.dongtian.epos.enums.PayStatusEnum;
+import com.dongtian.epos.entity.OrderDetail;
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
 import java.math.BigDecimal;
 import java.util.Date;
-    /*
-    * 订单主表
-    */
+import java.util.List;
+/*
+*   订单主表与订单详情表存在一定的关联，直接新建一个dto(data transfer object)，并把订单详情作为属性加入
+*/
 @Data
-@Entity(name="order_master")
-public class OrderMaster {
+public class OrderDto {
+
     /** 订单id. */
-    @Id
     private String orderId;
 
+    /** 买家名字. */
     private String buyerName;
 
+    /** 买家手机号. */
     private String buyerPhone;
 
+    /** 买家地址. */
     private String buyerAddress;
 
     /** 买家微信Openid. */
@@ -31,12 +31,17 @@ public class OrderMaster {
     private BigDecimal orderAmount;
 
     /** 订单状态, 默认为0新下单. */
-    private Integer orderStatus = OrderStatusEnum.NEW.getCode();
+    private Integer orderStatus;
 
     /** 支付状态, 默认为0未支付. */
-    private Integer payStatus = PayStatusEnum.WAIT.getCode();
+    private Integer payStatus;
+
+    /** 创建时间. */
 
     private Date createTime;
 
+    /** 更新时间. */
     private Date updateTime;
+
+    List<OrderDetail> orderDetailList;
 }

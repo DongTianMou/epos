@@ -4,7 +4,7 @@ import com.dongtian.epos.dto.CartDto;
 import com.dongtian.epos.entity.ProductInfo;
 import com.dongtian.epos.enums.ProductStatusEnum;
 import com.dongtian.epos.enums.ResultEnum;
-import com.dongtian.epos.exceptions.ProductException;
+import com.dongtian.epos.exceptions.ParamException;
 import com.dongtian.epos.repository.ProductInfoRepository;
 import com.dongtian.epos.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,12 +45,14 @@ public class ProductServiceImpl implements ProductService {
 
         for (CartDto cartDto:cartDtoList) {
             String productId = cartDto.getProductId();
+            //通过id查商品
             ProductInfo productInfo = productRepository.getOne( productId );
             if (productInfo == null) {
-                throw new ProductException( ResultEnum.PRODUCT_NOT_EXIST);
+                throw new ParamException( ResultEnum.PRODUCT_NOT_EXIST);
             }
+            //拿到商品查库存并 + 购物车中的数量
             Integer stock = productInfo.getProductStock() + cartDto.getProductQuantity();
-
+            //设置新库存
             productInfo.setProductStock(stock);
 
             productRepository.save(productInfo);
@@ -65,11 +67,11 @@ public class ProductServiceImpl implements ProductService {
             String productId = cartDto.getProductId();
             ProductInfo productInfo = productRepository.getOne( productId );
             if (productInfo == null) {
-                throw new ProductException( ResultEnum.PRODUCT_NOT_EXIST);
+                throw new ParamException( ResultEnum.PRODUCT_NOT_EXIST);
             }
             Integer stock = productInfo.getProductStock() - cartDto.getProductQuantity();
             if (stock < 0) {
-                throw new ProductException(ResultEnum.PRODUCT_STOCK_ERROR);
+                throw new ParamException(ResultEnum.PRODUCT_STOCK_ERROR);
             }
             productInfo.setProductStock(stock);
 

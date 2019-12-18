@@ -14,5 +14,6 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: update
+  #字段为空的json数据不展示
   jackson:
     default-property-inclusion: non_null

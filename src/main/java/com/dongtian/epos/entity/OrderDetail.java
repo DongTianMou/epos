@@ -5,6 +5,8 @@ import lombok.Data;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.math.BigDecimal;
+import java.util.Date;
+
 /*
     订单详情表：根据主表查到的orderId来查详情
  */
@@ -31,4 +33,8 @@ public class OrderDetail {
 
     /** 商品小图. */
     private String productIcon;
+
+    private Date createTime;
+
+    private Date updateTime;
 }
